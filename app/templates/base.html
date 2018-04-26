@@ -1,0 +1,41 @@
+<html>
+<head>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>No title</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap-4.0.0-dist/css/bootstrap.min.css') }}">
+    <script type="text/javascript"
+            src="{{ url_for('static', filename = 'jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename = 'bootstrap-4.0.0-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{url_for('static', filename ='lightbox/js/lightbox.min.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'lightbox/css/lightbox.min.css')}}">
+    <style>
+        @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+        @import url(https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css);
+
+        .hm-gradient {
+            background-color: #eee;
+        }
+
+        .darken-grey-text {
+            color: #2E2E2E;
+        }
+
+    </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</body>
+</html>

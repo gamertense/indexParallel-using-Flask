@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center darken-grey-text mb-4">
+    <h1 class="font-bold mt-4 mb-3 h5">Benchmark graph</h1>
+    <div class="col-md-8 mb-4 offset-md-2">
+        <div class="card">
+            <center>
+                <div id="imagediv"><a href="{{ url_for('static', filename = 'benchmark.png') }}" data-lightbox="image-1"
+                                      data-title="Serial vs. Multiprocessing"></a></div>
+            </center>
+        </div>
+    </div>
+</div>
+{% if result %}
+<!--Show benchmark graph-->
+
+<h1 class="text-center font-bold mt-4 mb-3 h5">Output</h1>
+<div class="col-md-8 mb-4 offset-md-2">
+    <div class="card">
+        <div class="card-block p-3">
+            <p><b>Postinglist 1: </b>{{ result['post1'] }}</p>
+            <p><b>Postinglist 2: </b>{{ result['post2'] }}</p>
+            <p><b>Result: </b>{{ result['postr'] }}</p>
+            <p><b>Time used in serial: </b>{{ result['serial'] }}</p>
+            <p><b>Time used for 2 processes: </b>{{ result['2p'] }}</p>
+            <p><b>Time used for 4 processes: </b>{{ result['4p'] }}</p>
+            <p><b>Time used for 8 processes: </b>{{ result['8p'] }}</p>
+            <p><b>Time used for 2 threads: </b>{{ result['2t'] }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<form action="{{ url_for('index') }}" method="post">
+    {{ form.hidden_tag() }}
+    <div class="container mt-4">
+        <div class="text-center darken-grey-text mb-4">
+            <h1 class="font-bold mt-4 mb-3 h5">Input search term 1</h1>
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="text" name="term1" value="brother">
+                    <label>For example: brother</label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center darken-grey-text mb-4">
+            <h1 class="font-bold mt-4 mb-3 h5">Input search term 2</h1>
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="text" name="term2" value="water">
+                    <label>For example: water</label>
+                </div>
+            </div>
+            <button class="btn btn-success">Search <i class="fa fa-search"></i>
+        </div>
+    </div>
+</form>
+
+<script>
+    console.log("sdf");
+    var img = $("<img />").attr('src', '/static/benchmark.png')
+        .on('load', function () {
+            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                alert('broken image!');
+            } else {
+                $("#imagediv a").append(img);
+                console.log("else");
+                document.getElementsByTagName("img")[0].setAttribute("width", "80%");
+            }
+        });
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+    })
+</script>
+{% endblock %}
