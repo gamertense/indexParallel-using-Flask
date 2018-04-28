@@ -58,15 +58,14 @@
 </form>
 
 <script>
-    console.log("sdf");
     var img = $("<img />").attr('src', '/static/benchmark.png')
         .on('load', function () {
             if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
                 alert('broken image!');
             } else {
                 $("#imagediv a").append(img);
-                console.log("else");
                 document.getElementsByTagName("img")[0].setAttribute("width", "80%");
+                location.reload();
             }
         });
     lightbox.option({
