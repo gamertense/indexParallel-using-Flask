@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">Search</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('benchmark') }}">Benchmark Result</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="text-center darken-grey-text mb-4" xmlns="http://www.w3.org/1999/html">
+    <h1 class="font-bold mt-4 mb-3 h5">Benchmark graph</h1>
+    <div class="col-md-8 mb-4 offset-md-2">
+        <div class="card">
+            <center><a
+                        href="{{ url_for('static', filename = 'benchmark.png') }}" data-lightbox="image-1"
+                        data-title="Serial vs. Multiprocessing"><img src="" width="80%"></a>
+            </center>
+        </div>
+    </div>
+</div>
+{% if result %}
+<h1 class="text-center font-bold mt-4 mb-3 h5">Output</h1>
+<div class="col-md-6 mb-4 offset-md-3">
+    <div class="card">
+        <div class="card-block p-3">
+            <p><b>Postinglist 1: </b>{{ result['post1'] }}</p>
+            <p><b>Postinglist 2: </b>{{ result['post2'] }}</p>
+            <p><b>Result: </b>{{ result['postr'] }}</p>
+            <p><b>Time used in serial: </b>{{ result['serial'] }}</p>
+            <p><b>Time used for 2 processes: </b>{{ result['2p'] }}</p>
+            <p><b>Time used for 4 processes: </b>{{ result['4p'] }}</p>
+            <p><b>Time used for 8 processes: </b>{{ result['8p'] }}</p>
+            <p><b>Time used for 2 threads: </b>{{ result['2t'] }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+        d = new Date();
+        var imageURL = "static/benchmark.png?"+ d.getTime();
+        var image = $("img").attr("src",imageURL);
+
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
+    });
+
+    function check(src) {
+        return $("<img>").attr('src', src);
+    }
+</script>
+{% endblock %}

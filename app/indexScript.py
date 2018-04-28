@@ -71,3 +71,4 @@ def indexScript(input1, input2):
                  "2t": benchmark[4]}
 
     plot_results()
+    return retObject
